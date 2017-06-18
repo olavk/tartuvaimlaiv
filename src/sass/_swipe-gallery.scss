@@ -1,0 +1,20 @@
+.swipe-gallery {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+}
+.swipe-gallery-child {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+.swipe-gallery-animation-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  &.animates {
+    transition: margin 250ms ease-in-out;
+  }
+}

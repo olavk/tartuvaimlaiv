@@ -1,0 +1,23 @@
+.home {
+  background-image: url("../images/laulupidu-background_60.jpg");
+  background-size: cover;
+  background-position: 50% 0;
+  h2 {
+    font-size: 30px;
+    color: #ccc;
+  }
+  .banner {
+    background-color: $bannerColor;
+    position: absolute;
+    top: 20%;
+    // bottom: 20%;
+    left: 5%;
+    right: 5%;
+    h2 {
+      font-size: 35px;
+      padding: 20px 30px;
+      color: white;
+      text-align: center;
+    }
+  }
+}
