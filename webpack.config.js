@@ -14,8 +14,10 @@ const config = {
   },
   resolve: {
     alias: {
+      'src': path.resolve(__dirname, 'src/'),
       'utils': path.resolve(__dirname, 'src/utils/'),
       'modules': path.resolve(__dirname, 'src/redux/modules/'),
+      'components': path.resolve(__dirname, 'src/Components/'),
     },
   },
   module: {
@@ -52,7 +54,7 @@ const config = {
             loader: 'file-loader',
             query: {
               name: '[name]_[md5:hash:hex:6].[ext]',
-              publicPath: './',
+              publicPath: '/dist/',
             }
           },
           {loader: 'image-webpack-loader'},

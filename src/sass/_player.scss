@@ -5,7 +5,16 @@
   .vjs-control-bar {
     display: none!important;
   }
+  outline: 2px solid white;
 }
 .liveplayer-overlayed {
+  position: relative;
+}
+.player-placeholder {
+  width: 100%;
+  height: 100%;
+}
+
+.iframe-player-overlayed {
   position: relative;
 }

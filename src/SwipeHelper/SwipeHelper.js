@@ -5,6 +5,13 @@ import Swipeable from 'react-swipeable';
 const SWIPE_STARTED_AT = 15;
 const SWIPE_DONE_AT = 150;
 
+function zeroOrSmaller(x) {
+  return x < 0 ? x : 0;
+}
+function zeroOrLarger(x) {
+  return x > 0 ? x : 0;
+}
+
 export default class SwipeHelper extends PureComponent {
   constructor(props) {
     super(props);
@@ -59,10 +66,10 @@ export default class SwipeHelper extends PureComponent {
       }
     }
     if (swipingLeft) {
-      onSwipingLeft(deltaX);
+      onSwipingLeft(zeroOrSmaller(deltaX));
     }
     if (swipingRight) {
-      onSwipingRight(deltaX);
+      onSwipingRight(zeroOrLarger(deltaX));
     }
   }
   handleSwiped(se, deltaX, deltaY, isFlick) {

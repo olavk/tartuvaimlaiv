@@ -1,6 +1,6 @@
 import {SET_INDEX} from '../constants';
 
-const initialState = 1;
+const initialState = 0;
 
 export default function channelIndex(state = initialState, action) {
   switch (action.type) {

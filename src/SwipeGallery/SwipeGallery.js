@@ -2,6 +2,9 @@ import React, {PureComponent} from 'react';
 import {PropTypes} from 'prop-types';
 import cx from 'classnames';
 import SwipeHelper from '../SwipeHelper/SwipeHelper';
+import SwipeChild from './SwipeChild';
+import leftImage from '../images/left.png';
+import rightImage from '../images/right.png';
 
 function isAtFirstChild(childIndex) {
   return childIndex === 0;
@@ -59,6 +62,8 @@ export default class SwipeGallery extends PureComponent {
     this.handleSwipedLeftBound = this.handleSwipedLeft.bind(this);
     this.handleSwipeFailedBound = this.handleSwipeFailed.bind(this);
     this.handleTransitionEndBound = this.handleTransitionEnd.bind(this);
+    this.handleClickedLeftBound = this.handleClickedLeft.bind(this);
+    this.handleClickedRightBound = this.handleClickedRight.bind(this);
   }
   componentWillReceiveProps(nextProps) {
     const indexDiff = this.props.childIndex !== nextProps.childIndex;
@@ -90,7 +95,7 @@ export default class SwipeGallery extends PureComponent {
   getWrapperStyle() {
     const {swipeFactor, animationDirection} = this.state;
     let swipePercent;
-    if (this.animationPending()) {
+    if (this.isAnimationPending()) {
       if (animationDirection === 'right') {
         swipePercent = '-100%';
       } else {
@@ -102,6 +107,19 @@ export default class SwipeGallery extends PureComponent {
     return {
       marginLeft: swipePercent,
     };
+  }
+  isAnimationPending() {
+    return this.state.animationChildren !== null;
+  }
+  canSwipeLeft() {
+    const {childIndex} = this.props;
+    const animates = this.isAnimationPending();
+    return !animates && childIndex > 0;
+  }
+  canSwipeRight() {
+    const {childIndex} = this.props;
+    const animates = this.isAnimationPending();
+    return !animates && childIndex < (this.getCount() - 1);
   }
   setSwipeFactor(swipeFactor) {
     this.setState({swipeFactor});
@@ -126,43 +144,42 @@ export default class SwipeGallery extends PureComponent {
       this.setSwipeFactor(swipeFactor);
     }
   }
-  handleSwipedRight() {
-    // this.setSwipeFactor(0);
-    const {onSwipedRight} = this.props;
-    onSwipedRight();
-  }
   handleSwipedLeft() {
-    // this.setSwipeFactor(0);
-    const {onSwipedLeft} = this.props;
-    onSwipedLeft();
+    this.props.onSwipedLeft();
+  }
+  handleSwipedRight() {
+    this.props.onSwipedRight();
   }
   handleSwipeFailed() {
     this.setSwipeFactor(0);
   }
-  animationPending() {
-    return this.state.animationChildren !== null;
+  handleClickedLeft() {
+    this.props.onClickedLeft();
+  }
+  handleClickedRight() {
+    this.props.onClickedRight();
   }
   renderAnimationChildren() {
     const {animationChildren, animationDirection} = this.state;
     if (animationDirection === 'right') {
       return [(
-        <div className="swipe-gallery-child" style={{left: 0}} key={0}>
+        <SwipeChild style={{left: 0}} key={0}>
           {animationChildren[0]}
-        </div>
+        </SwipeChild>
       ), (
-        <div className="swipe-gallery-child" style={{left: '100%'}} key={1}>
+        <SwipeChild style={{left: '100%'}} key={1}>
           {animationChildren[1]}
-        </div>
+        </SwipeChild>
       )];
     } else if (animationDirection === 'left') {
       return [(
-        <div className="swipe-gallery-child" style={{left: '-100%'}} key={0}>
+        <SwipeChild style={{left: '-100%'}} key={0}>
           {animationChildren[0]}
-        </div>
+        </SwipeChild>
       ), (
-        <div className="swipe-gallery-child" style={{left: 0}} key={1}>
+        <SwipeChild style={{left: 0}} key={1}>
           {animationChildren[1]}
-        </div>
+        </SwipeChild>
       )];
     }
     return null;
@@ -183,9 +200,9 @@ export default class SwipeGallery extends PureComponent {
       const style = {left};
       const key = index;
       return (
-        <div className="swipe-gallery-child" style={style} key={key}>
+        <SwipeChild style={style} key={key}>
           {child}
-        </div>
+        </SwipeChild>
       );
     });
   }
@@ -196,17 +213,16 @@ export default class SwipeGallery extends PureComponent {
     return this.renderChildrenSlice();
   }
   render() {
-    const {childIndex} = this.props;
-    const animates = this.animationPending();
+    const animates = this.isAnimationPending();
     return (
       <div className="swipe-gallery" ref={this.handleMountBound}>
         <SwipeHelper
-          canSwipeLeft={!animates && childIndex > 0}
-          canSwipeRight={!animates && childIndex < (this.getCount() - 1)}
+          canSwipeLeft={this.canSwipeLeft()}
+          canSwipeRight={this.canSwipeLeft()}
           onSwipingLeft={this.handleSwipingBound}
           onSwipingRight={this.handleSwipingBound}
-          onSwipedRight={this.handleSwipedRightBound}
           onSwipedLeft={this.handleSwipedLeftBound}
+          onSwipedRight={this.handleSwipedRightBound}
           onSwipeFailed={this.handleSwipeFailedBound}
         >
           <div
@@ -216,6 +232,14 @@ export default class SwipeGallery extends PureComponent {
           >
             {this.renderChildren()}
           </div>
+          <div className="swipe-gallery-buttons">
+            <button className="swipe-button swipe-button-left" onClick={this.handleClickedLeftBound}>
+              <img src={leftImage} alt="left button" />
+            </button>
+            <button className="swipe-button swipe-button-right" onClick={this.handleClickedRightBound}>
+              <img src={rightImage} alt="right button" />
+            </button>
+          </div>
         </SwipeHelper>
       </div>
     );
@@ -224,10 +248,14 @@ export default class SwipeGallery extends PureComponent {
 SwipeGallery.defaultProps = {
   onSwipedRight: () => {},
   onSwipedLeft: () => {},
+  onClickedLeft: () => {},
+  onClickedRight: () => {},
 };
 SwipeGallery.propTypes = {
   children: PropTypes.node.isRequired,
   childIndex: PropTypes.number.isRequired,
-  onSwipedRight: PropTypes.func,
   onSwipedLeft: PropTypes.func,
+  onSwipedRight: PropTypes.func,
+  onClickedLeft: PropTypes.func,
+  onClickedRight: PropTypes.func,
 };

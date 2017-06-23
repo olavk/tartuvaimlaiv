@@ -2,21 +2,37 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {push as _pushLocation} from 'react-router-redux';
+import PlayButton from 'components/PlayButton';
+// import LivePlayer from '../LivePlayer/LivePlayerOverlayed';
 
 class Home extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {};
+    this.handleChannelsClickBound = this.handleChannelsClick.bind(this);
+  }
+  handleChannelsClick() {
+    this.props.pushLocation('/channels');
   }
   render() {
     return (
-      <div className="home section-page">
-        <div className="banner">
-          <h2>Tartu Laulupeol</h2>
-          <button className="play-button">Uuri lähemalt</button>
+      <div className="home">
+        <div className="landing-page section-page">
+          <div className="banner">
+            <h2>Tartu Laulupeol</h2>
+            <PlayButton onClick={this.handleChannelsClickBound}>
+              Vaata lähemalt
+            </PlayButton>
+          </div>
         </div>
-
-        <a onClick={() => this.props.pushLocation('/channels')}>Channels</a>
+        <div className="sponsors-page section-page">
+          <div className="banner-green">
+            Meil on palju toetajaid!
+            <div style={{height: 600}}>
+              asd
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
