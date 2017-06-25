@@ -19,9 +19,8 @@ button {
   position: relative;
   width: 100%;
   margin-left: 0;
-  // transition: margin 400ms ease-in-out;
   &.animates {
-    transition: margin 250ms ease-in-out;
+    transition: margin $animationDuration ease-in-out;
   }
   &.channels-mode {
     margin-left: -100%;
@@ -34,6 +33,7 @@ button {
 }
 .play-button {
   position: relative;
+  cursor: pointer;
   background-color: $brandGreen;
   border-radius: 7px;
   padding: 0 15px;

@@ -30,19 +30,23 @@ export default class IframePlayer extends Component {
 
       doc.head.appendChild(styleElement);
       doc.body.appendChild(scriptElement);
+      doc.body.setAttribute('class', 'in-iframe');
     }
   }
   render() {
-    const {contentId} = this.props;
+    const {contentId, title} = this.props;
     return (
       <div className="iframe-player">
         <iframe title={contentId} ref={this.handleMountBound} style={{width: '100%', height: '100%'}} />
+        <div className="player-title">{title}</div>
       </div>
     );
   }
 }
 IframePlayer.defaultProps = {
+  title: '',
 };
 IframePlayer.propTypes = {
   contentId: PropTypes.string.isRequired,
+  title: PropTypes.string,
 };

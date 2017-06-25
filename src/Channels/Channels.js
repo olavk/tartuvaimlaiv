@@ -3,24 +3,46 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {push as _pushState} from 'react-router-redux';
 import {setIndex} from 'modules/channels/actions';
-// import LivePlayer from '../LivePlayer/LivePlayerOverlayed';
-import IframePlayerOverlayed from '../IframePlayer/IframePlayerOverlayed';
+import IframePlayer from '../IframePlayer/IframePlayer';
 import SwipeGallery from '../SwipeGallery/SwipeGallery';
-// 41779_c_52115
-// 20599_l_441345
 
 // channels
-// 1 92417_c_442866
-// 2 92417_c_442867
-
-// http://2.bp.blogspot.com/-AXkkbmFRErs/TjCZIWGawfI/AAAAAAAAAlk/lT8yTGBYh38/s1600/Rick-Roll3.png
-// https://static.independent.co.uk/s3fs-public/thumbnails/image/2016/01/07/12/Rick-Roll-Mash-Up.jpg
-// http://media.salon.com/2015/04/Screen-Shot-2015-04-08-at-6.19.59-PM.png
-// https://img.wonderhowto.com/img/05/67/63388558293762/0/rick-roll.1280x600.jpg
+// 01 92417_c_442866
+// 02 92417_c_442867
+// 03 92417_c_444398
+// 04 92417_c_444399
+// 05 92417_c_444400
+// 06 92417_c_444401
+// 07 92417_c_444402
+// 08 92417_c_444403
+// 09 92417_c_444404
+// 10 92417_c_444405
 
 const contentIds = [
-  '92417_c_442866',
-  '92417_c_442867',
+  '92417_f_422332', // backup
+  '92417_c_442866', // 1
+  '92417_c_442867', // 2
+  '92417_c_444398', // 3
+  '92417_c_444399', // 4
+  '92417_c_444400', // 5
+  '92417_c_444401', // 6
+  '92417_c_444402', // 7
+  '92417_c_444403', // 8
+  '92417_c_444404', // 9
+  '92417_c_444405', // 10
+];
+const titles = [
+  'Tartu',
+  '1',
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+  '8',
+  '9',
+  '10',
 ];
 
 class Channels extends PureComponent {
@@ -35,25 +57,14 @@ class Channels extends PureComponent {
   }
   renderChildren() {
     const {channelIndex} = this.props;
-    /*
-    const children = [
-      <LivePlayer key="1" contentId="92417_c_442866" play={this.isInView() && channelIndex === 0} />,
-      <LivePlayer key="2" contentId="92417_c_442867" play={this.isInView() && channelIndex === 1} />,
-    ];
-    */
     const children = contentIds.map((contentId, contentIdIndex) => {
       if (this.isInView() && channelIndex === contentIdIndex) {
-        /*
         return (
-          <LivePlayer
+          <IframePlayer
             key={contentId}
             contentId={contentId}
-            play
+            title={titles[contentIdIndex]}
           />
-        );
-        */
-        return (
-          <IframePlayerOverlayed key={contentId} contentId={contentId} />
         );
       }
       return (

@@ -22,12 +22,25 @@
       margin-bottom: 60px;
     }
   }
-  .banner-green {
-    background-color: $brandGreen;
+  .banner-wide {
     color: $eggShell;
     font-size: 35px;
     padding: 0 30px;
     line-height: 90px;
     text-align: center;
+  }
+  .banner-green {
+    background-color: $brandGreen;
+  }
+  .banner-brown {
+    background-color: $brandBrown;
+  }
+  .logos {
+    padding: 30px 0;
+    text-align: center;
+    img {
+      vertical-align: middle;
+      margin: 0 20px;
+    }
   }
 }

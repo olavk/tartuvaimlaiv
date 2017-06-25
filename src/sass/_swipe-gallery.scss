@@ -15,17 +15,23 @@
   }
 }
 .swipe-gallery-buttons {
+  .swipe-button-left {
+    left: 0;
+  }
+  .swipe-button-right {
+    right: 0;
+  }
   .swipe-button {
     position: absolute;
-    top: 50%;
-    background-color: transparent;
-    border: 0;
+    top: 0;
+    bottom: 30px;
     width: 150px;
     padding: 50px;
+    background-color: transparent;
+    border: 0;
     img {
       position: relative;
       width: 100%;
-      margin-top: -90px;
     }
     cursor: pointer;
     &:active {
@@ -34,12 +40,14 @@
         left: 3px;
       }
     }
+    opacity: 1;
+    transition: opacity $animationDuration ease-in-out;
   }
-  .swipe-button-left {
-    left: 0;
-  }
-  .swipe-button-right {
-    right: 0;
+  visibility: visible;
+  &.hidden {
+    .swipe-button {
+      opacity: 0;
+    }
   }
 }
 .swipe-gallery-animation-wrapper {
@@ -47,7 +55,7 @@
   height: 100%;
   position: relative;
   &.animates {
-    transition: margin 250ms ease-in-out;
+    transition: margin $animationDuration ease-in-out;
   }
 }
 

@@ -3,8 +3,7 @@ import {PropTypes} from 'prop-types';
 import cx from 'classnames';
 import SwipeHelper from '../SwipeHelper/SwipeHelper';
 import SwipeChild from './SwipeChild';
-import leftImage from '../images/left.png';
-import rightImage from '../images/right.png';
+import SwipeGalleryButtons from './SwipeGalleryButtons';
 
 function isAtFirstChild(childIndex) {
   return childIndex === 0;
@@ -82,7 +81,7 @@ export default class SwipeGallery extends PureComponent {
       this.wrapperNode.removeEventListener('transitionend', this.handleTransitionEndBound);
     }
   }
-  getCount() {
+  getChildrenCount() {
     const {children} = this.props;
     if (!children) return 0;
     if (!children.length) return 0;
@@ -111,6 +110,14 @@ export default class SwipeGallery extends PureComponent {
   isAnimationPending() {
     return this.state.animationChildren !== null;
   }
+  isAtFirstChild() {
+    const {children, childIndex} = this.props;
+    return isAtFirstChild(childIndex, children);
+  }
+  isAtLastChild() {
+    const {children, childIndex} = this.props;
+    return isAtLastChild(childIndex, children);
+  }
   canSwipeLeft() {
     const {childIndex} = this.props;
     const animates = this.isAnimationPending();
@@ -119,7 +126,7 @@ export default class SwipeGallery extends PureComponent {
   canSwipeRight() {
     const {childIndex} = this.props;
     const animates = this.isAnimationPending();
-    return !animates && childIndex < (this.getCount() - 1);
+    return !animates && childIndex < (this.getChildrenCount() - 1);
   }
   setSwipeFactor(swipeFactor) {
     this.setState({swipeFactor});
@@ -186,7 +193,7 @@ export default class SwipeGallery extends PureComponent {
   }
   renderChildrenSlice() {
     const {children, childIndex} = this.props;
-    if (!this.getCount()) return null;
+    if (!this.getChildrenCount()) return null;
     const slice = getChildrenSlice(children, childIndex);
     let tempLeft;
     if (isAtFirstChild(childIndex)) {
@@ -232,14 +239,12 @@ export default class SwipeGallery extends PureComponent {
           >
             {this.renderChildren()}
           </div>
-          <div className="swipe-gallery-buttons">
-            <button className="swipe-button swipe-button-left" onClick={this.handleClickedLeftBound}>
-              <img src={leftImage} alt="left button" />
-            </button>
-            <button className="swipe-button swipe-button-right" onClick={this.handleClickedRightBound}>
-              <img src={rightImage} alt="right button" />
-            </button>
-          </div>
+          <SwipeGalleryButtons
+            showLeftButton
+            showRightButton={!this.isAtLastChild()}
+            onClickedLeft={this.handleClickedLeftBound}
+            onClickedRight={this.handleClickedRightBound}
+          />
         </SwipeHelper>
       </div>
     );

@@ -1,11 +1,14 @@
 .video-js {
+  overflow: hidden;
   .vjs-big-play-button {
+    display: inline-block!important;
+  }
+  .vjs-playing .vjs-big-play-button {
     display: none!important;
   }
   .vjs-control-bar {
-    display: none!important;
+    // display: none!important;
   }
-  outline: 2px solid white;
 }
 .liveplayer-overlayed {
   position: relative;
@@ -14,7 +17,19 @@
   width: 100%;
   height: 100%;
 }
-
+.player-title {
+  position: absolute;
+  top: 3%;
+  left: 6%;
+  font-size: 60px;
+  color: rgba(255,255,255,0.9);
+}
 .iframe-player-overlayed {
   position: relative;
+}
+.iframe-player {
+  background: transparent url('../images/loading.gif') 50% 50% no-repeat;
+}
+body.in-iframe {
+  background: black url('../images/loading.gif') 50% 50% no-repeat;
 }
