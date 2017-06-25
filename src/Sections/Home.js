@@ -33,9 +33,7 @@ class Home extends PureComponent {
           <div className="banner-wide banner-green">
             Meil on palju toetajaid!
           </div>
-          <div style={{height: 600}}>
-            asd
-          </div>
+          <div style={{height: 600}} />
           <div className="banner-wide banner-brown">
             Meil on palju toetajaid!
           </div>
