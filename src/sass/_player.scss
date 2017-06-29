@@ -1,5 +1,7 @@
 .video-js {
   overflow: hidden;
+  width: 100%!important;
+  height: 100%!important;
   .vjs-big-play-button {
     display: inline-block!important;
   }

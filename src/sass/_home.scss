@@ -1,9 +1,24 @@
 .home {
   .landing-page {
-    height: 100%;
+    height: 95%;
+    min-height: 400px;
     background-image: url("../images/laulupidu-background_60.jpg");
     background-size: cover;
     background-position: 50% 0;
+  }
+  .description-page {
+    .description {
+      font-size: 20px;
+      line-height: 28px;
+      margin: 40px auto;
+      width: 60%;
+      @media (max-width: 900px) {
+        width: 80%;
+      }
+    }
+    p {
+      margin-bottom: 40px;
+    }
   }
   .banner {
     background-color: $bannerColor;
@@ -14,12 +29,13 @@
     text-align: center;
     h2 {
       font-size: 35px;
+      line-height: 45px;
       padding: 20px 30px;
       color: $eggShell;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
     }
     .play-button {
-      margin-bottom: 60px;
+      margin-bottom: 50px;
     }
   }
   .banner-wide {

@@ -6,6 +6,7 @@ const config = {
   context: __dirname + '/src', // `__dirname` is root of project and `src` is source
   entry: {
     app: './app.js',
+    backend: './backend.js',
   },
   output: {
     path: __dirname + '/dist', // `dist` is the destination

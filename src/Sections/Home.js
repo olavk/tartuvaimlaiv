@@ -6,7 +6,7 @@ import PlayButton from 'components/PlayButton';
 import logo_makerlab from '../images/logo_makerlab.png';
 import logo_rcsnail from '../images/logo_rcsnail.png';
 import logo_tartu from '../images/logo_tartu.png';
-import logo_telia from '../images/logo_telia.png';
+// import logo_telia from '../images/logo_telia.png';
 import logo_tiigiseltsimaja from '../images/logo_tiigiseltsimaja.png';
 
 class Home extends PureComponent {
@@ -15,7 +15,8 @@ class Home extends PureComponent {
     this.state = {};
     this.handleChannelsClickBound = this.handleChannelsClick.bind(this);
   }
-  handleChannelsClick() {
+  handleChannelsClick(se) {
+    se.preventDefault();
     this.props.pushLocation('/channels');
   }
   render() {
@@ -23,19 +24,56 @@ class Home extends PureComponent {
       <div className="home">
         <div className="landing-page section-page">
           <div className="banner">
-            <h2>Tartu Laulupeol</h2>
+            <h2>Otseülekanded Laulu- ja Tantsupeo rongkäigu seest!</h2>
             <PlayButton onClick={this.handleChannelsClickBound}>
-              Vaata lähemalt
+              Vaata otseülekandeid
             </PlayButton>
           </div>
         </div>
-        <div className="sponsors-page section-page">
-          <div className="banner-wide banner-green">
-            Meil on palju toetajaid!
+        <div className="description-page section-page">
+          <div className="banner-wide banner-green">Mis hakkab toimuma?</div>
+          <div className="description">
+            <p>
+              Tartu linn koostöös avatud töökojaga <strong>SPARK Makerlab</strong> lisab laulupeole
+              vaatenurki:
+              siia (ka nutitelefonist vaadatavale) veebilehele ilmub 2. juulil 10 videoakent, milles
+              mängivad otseülekanded Tartu koorilauljate, pillimängijate ning võimlejate-tantsijate
+              endi vaatenurgast sõna otseses mõttes &mdash; valitud rongkäiguliste külge on
+              kinnitatud kaamerad, mis filmivad XII noorte laulu- ja tantsupeo rongkäiku koos heliga
+              “seestpoolt”! Otseülekanded kestavad rongkäigu algusest Vabaduse väljakul kuni
+              Lauluväljakule jõudmiseni välja.
+            </p>
+            <p>
+              Otseülekannete vaatamiseks vajuta nupule&nbsp;
+              <a onClick={this.handleChannelsClickBound} href="#">“Vaata otseülekandeid”</a>.
+              Nutitelefonist vaataja jõuab otseülekanneteni paremalt-vasakule pöidlaliigutusega.
+            </p>
+            <p>
+              Rongkäigus Tartu maakonna ees liigub suure mehatroonilise kuju “noore igavese tudengi”
+              süles 2 x 3 m LED-ekraan, millel on kõik 10 otseülekannet näha ka rongkäigu
+              pealtvaatajatele. Platvorm jääb pärast rongkäiku Lauluväljakule, kus toimub üllatus!
+            </p>
+            <p>
+              Jaga linki:&nbsp;
+              <a
+                href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(location.href)}&picture=&title=&caption=&quote=&description=%23tartuvaimlaulupeol`}
+                target="_blank"
+              >
+                  Facebookis
+              </a>,&nbsp;
+              <a
+                href={`https://twitter.com/share?url=${encodeURIComponent(location.href)}&hashtags=tartuvaimlaulupeol`}
+                target="_blank"
+              >
+                Twitteris
+              </a>
+            </p>
+            <p>
+              #tartuvaimlaulupeol
+            </p>
           </div>
-          <div style={{height: 600}} />
           <div className="banner-wide banner-brown">
-            Meil on palju toetajaid!
+            Meie partnerid
           </div>
           <div className="logos">
             <a target="_blank" rel="noopener noreferrer" href="http://www.tartu.ee/">
@@ -47,9 +85,11 @@ class Home extends PureComponent {
             <a target="_blank" rel="noopener noreferrer" href="http://tiigiseltsimaja.tartu.ee/">
               <img src={logo_tiigiseltsimaja} alt="Tiigi Seltsimaja" title="Tiigi Seltsimaja" />
             </a>
+            {/*
             <a target="_blank" rel="noopener noreferrer" href="https://www.telia.ee/">
               <img src={logo_telia} alt="Telia" title="Telia" />
             </a>
+            */}
             <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/RCSnail/">
               <img src={logo_rcsnail} alt="RCSnail" title="RCSnail" />
             </a>

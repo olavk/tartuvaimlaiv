@@ -1,3 +1,5 @@
 import createHistory from 'history/createBrowserHistory';
 
-export default createHistory();
+const routerBasename = window.routerBasename || undefined;
+
+export default createHistory({basename: routerBasename});
