@@ -7,6 +7,7 @@ const config = {
   entry: {
     app: './app.js',
     backend: './backend.js',
+    presentation: './presentation.js',
   },
   output: {
     path: __dirname + '/dist', // `dist` is the destination
@@ -17,6 +18,7 @@ const config = {
     alias: {
       'src': path.resolve(__dirname, 'src/'),
       'utils': path.resolve(__dirname, 'src/utils/'),
+      'reduxroot': path.resolve(__dirname, 'src/redux/'),
       'modules': path.resolve(__dirname, 'src/redux/modules/'),
       'components': path.resolve(__dirname, 'src/Components/'),
     },

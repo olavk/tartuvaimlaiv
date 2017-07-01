@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import socket from 'utils/socket';
 import configureStore from 'reduxroot/store/configureStore';
-import getRootReducer from 'modules/getRootReducer';
+import getRootReducer from 'modules/getPresentationRootReducer';
 import mapToDispatch from 'reduxroot/utils/mapToDispatch';
 import _setChannels from 'modules/channels/actions/setChannels';
-import App from './App/App';
+import Presentation from './Presentation/Presentation';
 import './sass/styles.scss';
 
 const rootReducer = getRootReducer();
@@ -16,7 +16,6 @@ const {dispatch} = store;
 const setChannels = mapToDispatch(_setChannels, dispatch);
 
 socket.on('channels', (data) => {
-  console.log('got channels', data);
   if (data) {
     const channels = data.channels || [];
     setChannels(channels);
@@ -26,6 +25,6 @@ socket.on('channels', (data) => {
 const node = document.getElementById('react-root');
 ReactDOM.render((
   <Provider store={store}>
-    <App />
+    <Presentation />
   </Provider>
 ), node);

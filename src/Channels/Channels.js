@@ -17,7 +17,7 @@ import SwipeGallery from '../SwipeGallery/SwipeGallery';
 // 08 92417_c_444403
 // 09 92417_c_444404
 // 10 92417_c_444405
-
+/*
 const contentIds = [
   '92417_f_422332', // backup
   '92417_c_442866', // 1
@@ -44,7 +44,7 @@ const titles = [
   '9',
   '10',
 ];
-
+*/
 class Channels extends PureComponent {
   constructor(props) {
     super(props);
@@ -56,14 +56,20 @@ class Channels extends PureComponent {
     return location === '/channels';
   }
   renderChildren() {
-    const {channelIndex} = this.props;
-    const children = contentIds.map((contentId, contentIdIndex) => {
-      if (this.isInView() && channelIndex === contentIdIndex) {
+    const {channelIndex, channels} = this.props;
+    const backup = [{
+      contentId: '92417_f_422332',
+      title: 'Tartu',
+    }];
+    const withBackup = channels.concat(backup);
+    const children = withBackup.map((channel, i) => {
+      const {contentId, title} = channel;
+      if (this.isInView() && channelIndex === i) {
         return (
           <IframePlayer
             key={contentId}
             contentId={contentId}
-            title={titles[contentIdIndex]}
+            title={title}
           />
         );
       }
@@ -72,7 +78,6 @@ class Channels extends PureComponent {
       );
     });
     return children;
-    // return [];
   }
   handleGalleryClickLeft() {
     const {setChannelIndex, channelIndex, pushState} = this.props;
@@ -108,12 +113,14 @@ class Channels extends PureComponent {
 }
 Channels.propTypes = {
   pushState: PropTypes.func.isRequired,
+  channels: PropTypes.array.isRequired,
   channelIndex: PropTypes.number.isRequired,
   setChannelIndex: PropTypes.func.isRequired,
   location: PropTypes.string.isRequired,
 };
 export default connect(
   state => ({
+    channels: state.channels.list,
     channelIndex: state.channels.channelIndex,
     location: state.router.location ? state.router.location.pathname : '',
   }),

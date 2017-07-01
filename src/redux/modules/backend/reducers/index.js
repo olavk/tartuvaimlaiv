@@ -1,28 +1,25 @@
 import {
-  TOGGLE_ENABLED_CHANNEL,
+  ENABLE_CHANNEL,
+  DISABLE_CHANNEL,
+  SET_ENABLED_CHANNELS,
 } from '../constants';
 
-function toMap(array) {
-  const map = {};
-  array.forEach(item => {
-    map[item] = true;
-  });
-  return map;
-}
-
-function toArray(map) {
-  Object.keys(map).map(key => map[key]).filter(item => item);
-}
-
-const initialState = [];
+const initialState = {};
 
 export function enabledChannels(state = initialState, action) {
   switch (action.type) {
-    case TOGGLE_ENABLED_CHANNEL: {
-      const {channel_id} = action;
-      const newState = toMap(state);
-      newState[channel_id] = !newState[channel_id];
-      return toArray(newState);
+    case SET_ENABLED_CHANNELS: {
+      return action.enabledChannels;
+    }
+    case ENABLE_CHANNEL: {
+      const newState = {...state};
+      newState[action.contentId] = true;
+      return newState;
+    }
+    case DISABLE_CHANNEL: {
+      const newState = {...state};
+      newState[action.contentId] = false;
+      return newState;
     }
     default:
       return state;
